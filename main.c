@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "headers/tad_dicionario.h"
+
+#include "./headers/tad_dicionario.h"
+#include "./headers_arrays/tad_lista_palavras_vetor.h"
+#include "./headers_arrays/tad_sorting.h"
 
 #define UPPER_A 65
 #define UPPER_Z 90
@@ -12,13 +15,16 @@
 int main() {
     tipo_dicionario dicionario;
 
-    char nome_arquivo[100]; // Variável que recebe o nome do arquivo para ser lido
+    char nome_arquivo[100];// Variável que recebe o nome do arquivo para ser lido
     char palavra_menu[100]; // Variável que recebe palavras para serem verificadas ou removidas
     char letra_desejada;  // Variável que recebe uma letra para associar com determinada lista
     int num_letra; num_letra = 0; // Variável que recebe o número da letra
     int cont_num_palavras; cont_num_palavras = 0; // Variável que recebe o número total de palavras do texto
     int loop; loop = 1; // Variável de loop para o menu
     int option; // Variável que recebe a opção do menu
+    int loop_sort; loop_sort = 1; // // Variável de loop para o menu de ordenação
+    int option_sort; // Variável que recebe a opção do menu de ordenação
+    int sorting; // Variável que recebe a ordenação desejada
 
     while (loop) {
         // Operações disponíveis no menu
@@ -27,13 +33,14 @@ int main() {
         printf("Nome do arquivo: %s\n", nome_arquivo); // Exibe o nome do arquivo que foi aberto
         printf("1. Inserir nome do arquivo\n"); // Inserir o nome do arquivo desejado
         printf("2. Construir o dicionário do texto\n"); // Constrói o dicionário
-        printf("3. Exibir lista de palavras de determinada letra\n"); // Exibe a lista de palavras de uma determinada letra
+        printf("3. Exibir a lista de palavras de determinada letra\n"); // Exibe a lista de palavras de uma determinada letra
         printf("4. Exibir toda a lista de palavras do texto\n"); // Exibe toda a lista de palavras do texto
-        printf("5. Verificar número de palavras do texto\n"); // Exibe o número de palavras únicas do texto de cada letra e total
+        printf("5. Verificar o número de palavras do texto\n"); // Exibe o número de palavras únicas do texto de cada letra e total
         printf("6. Verificar se determinada palavra está na lista de palavras do texto\n"); // Verifica se determinada palavra está nas listas
         printf("7. Remover determinada palavra de uma lista de palavras\n"); // Remove um determina palavra de uma determina lista
-        printf("8. Instruções para usar o programa\n"); // Breve explicação de como usar o programa
-        printf("9. Sair do programa\n"); // Encerrta o programa
+        printf("8. Ordenação\n"); // Ordenção do dicionário através de diferente métodos de ordenação
+        printf("9. Instruções para usar o programa\n"); // Breve explicação de como usar o programa
+        printf("10. Sair do programa\n"); // Encerra o programa
         printf("------------------------------------------------------------\n");
         printf("Opção desejada: ");
         scanf("%d", &option);
@@ -92,8 +99,6 @@ int main() {
                     printf("A palavra não foi encontrada!\n");
                 }
                 break;
-
-                break;
             case 7 :
                 printf("Insira uma letra: ");
                 scanf("%s", &letra_desejada);
@@ -117,12 +122,122 @@ int main() {
                 }
                 break;
             case 8 :
+                while (loop_sort) {
+                    // Operações disponíveis no menu de ordenação
+                    printf("\n-------------------- ORDENAÇÃO DO DICIONÁRIO --------------------\n");
+                    printf("Opções de ordenação:\n");
+                    printf("Nome do arquivo: %s\n", nome_arquivo); // Exibe o nome do arquivo que foi aberto
+                    printf("1. Construir o dicionário do texto\n"); // Constrói o dicionário do texto, desta vez implementado com vetores
+                    printf("2. Ordenar e exibir a lista de palavras de determinada letra\n"); // Ordena e exibe a lista de palavras de uma determinada letra
+                    printf("3. Ordenar e exibir toda a lista de palavras do texto\n"); // Ordena e exibe toda a lista de palavras do texto
+                    printf("4. Instruções para realizar a ordenação\n"); // Breve explicação de como usar o programa
+                    printf("5. Sair da ordenação e voltar ao menu inicial\n"); // Encerra a ordenação e retorna ao menu inicial
+                    printf("\n-----------------------------------------------------------------\n");
+                    printf("Opção desejada: ");
+                    scanf("%d", &option_sort);
+                    system("cls || clear");
+
+                    // Implementação do menu de ordenação de operações do programa
+                    switch (option_sort) {
+                        case 1 :
+                            for (num_letra = 0; num_letra < 26; num_letra++) {
+                                cont_num_palavras = cont_num_palavras + retorna_numero_palavras(&dicionario.alfabeto[num_letra].lista_palavras);
+                            }
+                            cont_num_palavras = 0;
+                            break;
+                        case 2 :
+                            printf("Insira uma letra: ");
+                            scanf("%s", &letra_desejada);
+                            printf("\n");
+                            printf("Informe o método de ordenação desejado:\n");
+                            printf("\n");
+                            printf("1. Bubble Sort\n");
+                            printf("2. Selection Sort\n");
+                            printf("3. Insertion Sort\n");
+                            printf("4. Shell Sort\n");
+                            printf("5. Quick Sort\n");
+                            printf("6. Heap Sort\n");
+                            printf("\n");
+                            printf("Método desejado: ");
+                            scanf("%d", &sorting);
+                            printf("\n");
+
+                            switch (sorting) {
+                                case 1 :
+                                    printf("Ordenação com Bubble Sort!\n");
+                                    break;
+                                case 2 :
+                                    printf("Ordenação com Selection Sort!\n");
+                                    break;
+                                case 3 :
+                                    printf("Ordenação com Insertion Sort!\n");
+                                    break;
+                                case 4 :
+                                    printf("Ordenação com Shell Sort!\n");
+                                    break;
+                                case 5 :
+                                    printf("Ordenação com Quick Sort!\n");
+                                    break;
+                                case 6 :
+                                    printf("Ordenação com Heap Sort!\n");
+                                    break;
+                                default :
+                                    break;
+                            }
+                            break;
+                        case 3 :
+                            printf("Informe o método de ordenação desejado:\n");
+                            printf("1. Bubble Sort\n");
+                            printf("2. Selection Sort\n");
+                            printf("3. Insertion Sort\n");
+                            printf("4. Shell Sort\n");
+                            printf("5. Quick Sort\n");
+                            printf("6. Heap Sort\n");
+                            printf("Método desejado: ");
+                            scanf("%d", &sorting);
+                            printf("\n");
+
+                            switch (sorting) {
+                                case 1 :
+                                    printf("Ordenação com Bubble Sort!\n");
+                                    break;
+                                case 2 :
+                                    printf("Ordenação com Selection Sort!\n");
+                                    break;
+                                case 3 :
+                                    printf("Ordenação com Insertion Sort!\n");
+                                    break;
+                                case 4 :
+                                    printf("Ordenação com Shell Sort!\n");
+                                    break;
+                                case 5 :
+                                    printf("Ordenação com Quick Sort!\n");
+                                    break;
+                                case 6 :
+                                    printf("Ordenação com Heap Sort!\n");
+                                    break;
+                                default :
+                                    break;
+                            }
+                            break;
+                        case 4 :
+                            printf("Instruções:\n");
+                            break;
+                        case 5 :
+                            loop_sort = 0;
+                            break;
+                        default :
+                            break;
+                    }
+                }
+                break;
+            case 9 :
                 printf("Instruções:\n");
                 printf("Passo 1 - Inserir o nome do arquivo de texto que deseja ler e receber suas informações (1)\n");
                 printf("Passo 2 - Construir o dicionário com suas listas de palavras (2)\n");
                 printf("Passo 3 - Utilizar as demais funções conforme sua vontade\n");
                 break;
-            case 9 :
+            case 10 :
                 printf("Obrigado por usar nosso dicionário :)\n");
                 loop = 0;
                 break;
