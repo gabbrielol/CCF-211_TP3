@@ -179,6 +179,7 @@ int main() {
                             switch (sorting) {
                                 case 1 :
                                     printf("\nOrdenação com Bubble Sort!\n");
+                                    bubble_sort(&new_dicionario, length_sort, num_letra);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
