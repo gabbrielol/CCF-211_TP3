@@ -140,10 +140,6 @@ int main() {
                     // Implementação do menu de ordenação de operações do programa
                     switch (option_sort) {
                         case 1 :
-                            for (num_letra = 0; num_letra < 26; num_letra++) {
-                                cont_num_palavras = cont_num_palavras + retorna_numero_palavras(&dicionario.alfabeto[num_letra].lista_palavras);
-                            }
-                            cont_num_palavras = 0;
                             break;
                         case 2 :
                             printf("Insira uma letra: ");

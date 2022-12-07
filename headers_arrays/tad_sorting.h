@@ -1,1 +1,1 @@
-#include "../headers/tad_dicionario.h"
+#include "../headers/tad_new_dicionario.h"
