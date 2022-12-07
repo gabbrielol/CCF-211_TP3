@@ -24,6 +24,7 @@ int main() {
     int loop_sort; loop_sort = 1; // // Variável de loop para o menu de ordenação
     int option_sort; // Variável que recebe a opção do menu de ordenação
     int sorting; // Variável que recebe a ordenação desejada
+    int length_sort; // Variável que recebe o tamanho do vetor a ser ordenado
 
     while (loop) {
         // Operações disponíveis no menu
@@ -145,6 +146,17 @@ int main() {
                         case 2 :
                             printf("Insira uma letra: ");
                             scanf("%s", &letra_desejada);
+                            if (letra_desejada >= LOWER_A && letra_desejada <= LOWER_Z) {
+                                num_letra = letra_desejada - LOWER_A;
+                            }
+                            else if (letra_desejada >= UPPER_A && letra_desejada <= UPPER_Z) {
+                                num_letra = letra_desejada - UPPER_A;
+                            }
+                            else {
+                                printf("O caractere informado não existe!\n");
+                                break;
+                            }
+                            length_sort = retorna_numero_palavras(&dicionario.alfabeto[num_letra].lista_palavras);
                             printf("\n");
                             printf("Informe o método de ordenação desejado:\n");
                             printf("\n");
