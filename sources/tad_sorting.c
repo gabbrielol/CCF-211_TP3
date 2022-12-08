@@ -177,10 +177,50 @@ void shell_sort(new_dicionario *new_dicionario, int length, int num_letra) {
     printf("-----------------------------------------------------------------\n");
 }
 
+// void constroi(new_dicionario *new_dicioionar, int length, int num_letra){
+//         int Esq;
+//         Esq = length /2+1;
+//         while (Esq > 1)
+//         { 
+//         Esq--;
+//         refaz(Esq, length, new_dicioionar, num_letra);
+// }
+// }
+
+
+// void refaz(int Esq, int Dir, new_dicionario *new_dicionar, int num_letra){
+//         int j = Esq * 2;
+//         char *aux;
+//         strcpy(aux, new_dicionar->alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[Esq]);
+//          while (j <= Dir){ 
+
+//         if ((j < Dir)&&(strcmp(new_dicionar -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j], 
+//             new_dicionar -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j+1]) < 0)) j++; 
+//         if (strcmp(aux, new_dicionar -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j]) >= 0) break;
+//         new_dicionar->alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[Esq] = new_dicionar->alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j];
+//         Esq = j; j = Esq * 2 ;
+//         }
+//         new_dicionar->alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[Esq] = aux;
+// }
+
+// void Heapsort(new_dicionario *new_dicionar, int length, int num_letra){
+//     int Esq, Dir;
+//     char *aux;
+//     constroi(new_dicionar, length, num_letra);
+//     Esq = 1; Dir = length;
+//     while(Dir > 1){
+//         strcpy(aux, new_dicionar->alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[1]);
+//         strcpy(new_dicionar->alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[1], new_dicionar->alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[Dir]);
+//         strcpy(new_dicionar->alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[Dir], aux);
+//         Dir--;
+//         refaz(Esq, Dir, new_dicionar, num_letra);
+//     }
+// }
+
 void sort(int left, int right, new_dicionario *new_dicionario, int num_letra) {
    int i, j;
    partition(left, right, &i, &j, new_dicionario, num_letra);
-   if (left < i) {
+   if (left < j) {
     sort(left, j, new_dicionario, num_letra);
    }
    if (i < right) {
@@ -194,15 +234,16 @@ void partition(int left, int right, int *i, int *j, new_dicionario *new_dicionar
 
     strcpy(pivot, new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[(*i + *j)/2]);
 
+    
+
     *i = left;
     *j = right;
 
-    do
-    {
-        while (strcmp(pivot, new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[(*i + *j)/2]) > 0) {
+    do {
+        while (strcmp(pivot, new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[*i]) < 0) {
             (*i)++;
         }
-        while (strcmp(pivot, new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[(*i + *j)/2]) < 0)
+        while (strcmp(pivot, new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[*j]) > 0)
         {
             (*j)--;
         }
