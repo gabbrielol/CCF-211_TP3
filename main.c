@@ -10,9 +10,19 @@
 #define LOWER_A 97
 #define LOWER_Z 122
 
+void clrscr() {
+    #ifdef __linux__
+        system("clear");
+    #elif _WIN32
+        system("cls");
+    #else
+    #endif
+}
+
 int main() {
     tipo_dicionario dicionario;
     new_dicionario new_dicionario;
+    sorting_informations information;
 
     char nome_arquivo[100] = {};// Variável que recebe o nome do arquivo para ser lido
     char palavra_menu[100]; // Variável que recebe palavras para serem verificadas ou removidas
@@ -44,7 +54,7 @@ int main() {
         printf("------------------------------------------------------------\n");
         printf("Opção desejada: ");
         scanf("%d", &option);
-        system("cls || clear");
+        clrscr();
 
         // Implementação do menu de operações do programa
         switch (option) {
@@ -122,6 +132,7 @@ int main() {
                 }
                 break;
             case 8 :
+                set_new_informations(&information);
                 loop_sort = 1;
                 while (loop_sort) {
                     // Operações disponíveis no menu de ordenação
@@ -131,12 +142,13 @@ int main() {
                     printf("1. Construir o dicionário do texto\n"); // Constrói o dicionário do texto, desta vez implementado com vetores
                     printf("2. Ordenar e exibir a lista de palavras de determinada letra\n"); // Ordena e exibe a lista de palavras de uma determinada letra
                     printf("3. Ordenar e exibir toda a lista de palavras do texto\n"); // Ordena e exibe toda a lista de palavras do texto
-                    printf("4. Instruções e observações para realizar a ordenação\n"); // Breve explicação de como usar o programa
-                    printf("5. Sair da ordenação e voltar ao menu inicial\n"); // Encerra a ordenação e retorna ao menu inicial
+                    printf("4. Limpar informações de ordenação\n"); // Limpa as informações de ordenação
+                    printf("5. Instruções e observações para realizar a ordenação\n"); // Breve explicação de como usar o programa
+                    printf("6. Sair da ordenação e voltar ao menu inicial\n"); // Encerra a ordenação e retorna ao menu inicial
                     printf("\n-----------------------------------------------------------------\n");
                     printf("Opção desejada: ");
                     scanf("%d", &option_sort);
-                    system("cls || clear");
+                    clrscr();
 
                     // Implementação do menu de ordenação de operações do programa
                     switch (option_sort) {
@@ -169,7 +181,7 @@ int main() {
                             printf("\n");
                             printf("Método desejado: ");
                             scanf("%d", &sorting);
-                            system("cls || clear");
+                            clrscr();
 
                             switch (sorting) {
                                 case 1 :
@@ -178,7 +190,7 @@ int main() {
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Bubble Sort!\n");
-                                    bubble_sort(&new_dicionario, length_sort, num_letra);
+                                    bubble_sort(&information, &new_dicionario, length_sort, num_letra);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
@@ -190,7 +202,7 @@ int main() {
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Selection Sort!\n");
-                                    selection_sort(&new_dicionario, length_sort, num_letra);
+                                    selection_sort(&information, &new_dicionario, length_sort, num_letra);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
@@ -202,7 +214,7 @@ int main() {
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Insertion Sort!\n");
-                                    insertion_sort(&new_dicionario, length_sort, num_letra);
+                                    insertion_sort(&information, &new_dicionario, length_sort, num_letra);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
@@ -214,7 +226,7 @@ int main() {
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Shell Sort!\n");
-                                    shell_sort(&new_dicionario, length_sort, num_letra);
+                                    shell_sort(&information, &new_dicionario, length_sort, num_letra);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
@@ -226,7 +238,7 @@ int main() {
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Quick Sort!\n");
-                                    // FUNÇÃO QUICK SORT
+                                    quick_sort(&information, &new_dicionario, length_sort, num_letra);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
@@ -260,7 +272,7 @@ int main() {
                             printf("\n");
                             printf("Método desejado: ");
                             scanf("%d", &sorting);
-                            system("cls || clear");
+                            clrscr();
 
                             switch (sorting) {
                                 case 1 :
@@ -334,6 +346,10 @@ int main() {
                             }
                             break;
                         case 4 :
+                            set_new_informations(&information);
+                            printf("Todas as informações de ordenação foram limpas!\n");
+                            break;
+                        case 5 :
                             printf("Instruções:\n");
                             printf("Passo 1 - Construir o dicionário com suas listas de palavras, só que desta vez com vetores (1)\n");
                             printf("Passo 2 - Utilizar as demais funções de ordenação conforme sua vontade\n\n");
@@ -341,7 +357,7 @@ int main() {
                             printf("- As informações de ordenação exibidas são para aquela lista de palavras e método em específico\n");
                             printf("- Para obter outras informações de outras lista e métodos limpe as informações primeiro (7)\n");
                             break;
-                        case 5 :
+                        case 6 :
                             loop_sort = 0;
                             break;
                         default :
