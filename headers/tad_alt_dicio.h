@@ -3,9 +3,14 @@
 #include <string.h>
 #include "../headers/tad_dicionario.h"
 
+// Delclarando um tipo para a lista de palavras
+typedef struct {
+    char *caracteres;
+} tipo_new_palavra;
+
 // Declarando um tipo para a lista de palavras
 typedef struct {
-    char **vetor_palavras;
+    tipo_new_palavra *vetor_palavras;
 } tipo_vetor_palavras;
 
 // Declarando um tipo para o dicionário
