@@ -42,5 +42,8 @@ void set_new_informations(sorting_informations *information);
 // Função de SET para uma nova iteração em um mesmo método
 void set_next_informations(sorting_informations *information);
 
+// Função de RESET das informações atuais de ordenação
+void reset_current_information(sorting_informations *information);
+
 // Exibir informações de ordenação
 void show_sorting_informations(sorting_informations *information);

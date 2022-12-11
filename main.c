@@ -35,6 +35,7 @@ int main() {
     int option_sort; // Variável que recebe a opção do menu de ordenação
     int sorting; // Variável que recebe a ordenação desejada
     int length_sort; // Variável que recebe o tamanho do vetor a ser ordenado
+    int i;
 
     while (loop) {
         // Operações disponíveis no menu
@@ -141,9 +142,8 @@ int main() {
                     printf("1. Construir o dicionário do texto\n"); // Constrói o dicionário do texto, desta vez implementado com vetores
                     printf("2. Ordenar e exibir a lista de palavras de determinada letra\n"); // Ordena e exibe a lista de palavras de uma determinada letra
                     printf("3. Ordenar e exibir toda a lista de palavras do texto\n"); // Ordena e exibe toda a lista de palavras do texto
-                    printf("4. Limpar informações de ordenação\n"); // Limpa as informações de ordenação
-                    printf("5. Instruções e observações para realizar a ordenação\n"); // Breve explicação de como usar o programa
-                    printf("6. Sair da ordenação e voltar ao menu inicial\n"); // Encerra a ordenação e retorna ao menu inicial
+                    printf("4. Instruções e observações para realizar a ordenação\n"); // Breve explicação de como usar o programa
+                    printf("5. Sair da ordenação e voltar ao menu inicial\n"); // Encerra a ordenação e retorna ao menu inicial
                     printf("\n-----------------------------------------------------------------\n");
                     printf("Opção desejada: ");
                     scanf("%d", &option_sort);
@@ -250,7 +250,7 @@ int main() {
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Heap Sort!\n");
-                                    // FUNÇÃO HEAP SORT
+                                    heap_sort(&information, &new_dicionario, num_letra, &length_sort);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
@@ -274,21 +274,20 @@ int main() {
                             printf("Método desejado: ");
                             scanf("%d", &sorting);
                             clrscr();
-
                             switch (sorting) {
                                 case 1 :
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("UNSORTED:\n\n");
-                                    imprime_new_dicionario_letra(&new_dicionario, &dicionario, 'A');
-                                    imprime_new_dicionario_letra(&new_dicionario, &dicionario, 'B');
+                                    imprime_new_dicionario_completo(&new_dicionario, &dicionario);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Bubble Sort!\n");
-                                    bubble_sort(&information, &new_dicionario, 0, length_sort);
-                                    bubble_sort(&information, &new_dicionario, 1, length_sort);
+                                    do {
+                                        length_sort = retorna_numero_palavras(dicionario.alfabeto[])
+                                        bubble_sort(&information, &new_dicionario, num_letra, length_sort);
+                                    } while (num_letra < 26);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
-                                    imprime_new_dicionario_letra(&new_dicionario, &dicionario, 'A');
-                                    imprime_new_dicionario_letra(&new_dicionario, &dicionario, 'B');
+                                    imprime_new_dicionario_completo(&new_dicionario, &dicionario);
                                     printf("-----------------------------------------------------------------\n");
                                     break;
                                 case 2 :

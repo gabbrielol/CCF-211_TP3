@@ -21,8 +21,9 @@ void bubble_sort(sorting_informations *information, new_dicionario *new_dicionar
     }
     end = clock();
     information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
-    show_sorting_informations(information);
     set_next_informations(information);
+    show_sorting_informations(information);
+    reset_current_information(information);
 }
 
 void selection_sort(sorting_informations *information, new_dicionario *new_dicionario, int num_letra, int length) {
@@ -49,7 +50,9 @@ void selection_sort(sorting_informations *information, new_dicionario *new_dicio
     }
     end = clock();
     information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+    set_next_informations(information);
     show_sorting_informations(information);
+    reset_current_information(information);
 }
 
 void insertion_sort(sorting_informations *information, new_dicionario *new_dicionario, int num_letra, int length) {
@@ -76,7 +79,9 @@ void insertion_sort(sorting_informations *information, new_dicionario *new_dicio
     }
     end = clock();
     information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+    set_next_informations(information);
     show_sorting_informations(information);
+    reset_current_information(information);
 }
 
 void shell_sort(sorting_informations *information, new_dicionario *new_dicionario, int num_letra, int length) {
@@ -108,27 +113,29 @@ void shell_sort(sorting_informations *information, new_dicionario *new_dicionari
     } while (h != 1);
     end = clock();
     information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+    set_next_informations(information);
     show_sorting_informations(information);
+    reset_current_information(information);
 }
 
 // Algoritmo Quick Sort - Sort - Partition - Swap
 void quick_sort(sorting_informations *information, new_dicionario *new_dicionario, int num_letra, int length) {
     clock_t start, end;
     start = clock();
-    // Função Quick Sort -> Sort -> Partition
+    // Algoritmo Quick Sort -> Sort -> Partition
     sort(information, &new_dicionario -> alfabeto[num_letra].lista_palavras_vetor, 0, length - 1);
     end = clock();
     information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+    set_next_informations(information);
     show_sorting_informations(information);
+    reset_current_information(information);
 }
-
 void sort(sorting_informations *information, tipo_vetor_palavras *vetor, int left, int right) {
     int i, j;
     partition(information, vetor, left, right, &i, &j);
     if (left < j) sort(information, vetor, left, j);
     if (i < right) sort(information, vetor, i, right);
 }
-
 void partition(sorting_informations *information, tipo_vetor_palavras *vetor, int left, int right, int *i, int *j) {
     *i = left; *j = right;
     char *pivot;
@@ -152,6 +159,9 @@ void partition(sorting_informations *information, tipo_vetor_palavras *vetor, in
 void heap_sort(sorting_informations *information, new_dicionario *new_dicionario, int num_letra, int *length) {
     int left, right;
     char *aux;
+    clock_t start, end;
+    start = clock();
+    // Algoritmo Heap Sort -> Make -> Remake
     make(information, &new_dicionario -> alfabeto[num_letra].lista_palavras_vetor, length);
     left = 1;
     right = *length;
@@ -162,9 +172,13 @@ void heap_sort(sorting_informations *information, new_dicionario *new_dicionario
         strcpy(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[right], aux);
         right--;
         remake(information, &new_dicionario -> alfabeto[num_letra].lista_palavras_vetor, left, right);
-    }  
+    }
+    end = clock();
+    information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+    set_next_informations(information);
+    show_sorting_informations(information);
+    reset_current_information(information);
 }
-
 void make(sorting_informations *information, tipo_vetor_palavras *vetor, int *length) {
     int left;
     left = (*length / 2) + 1;
@@ -173,7 +187,6 @@ void make(sorting_informations *information, tipo_vetor_palavras *vetor, int *le
         remake(information, vetor, left, *length);
     }
 }
-
 void remake(sorting_informations *information, tipo_vetor_palavras *vetor, int left, int right) {
     int j; j = left * 2;
     char *aux; strcpy(aux, vetor -> vetor_palavras[left]);
@@ -198,8 +211,11 @@ void set_new_informations(sorting_informations *information) {
 
 void set_next_informations(sorting_informations *information) {
     information -> t_sort_com = information -> t_sort_com + information -> sort_com;
-    information -> t_sort_mov = information -> t_sort_com + information -> sort_mov;
-    information -> t_sort_time = information -> t_sort_com + information -> sort_time;
+    information -> t_sort_mov = information -> t_sort_mov + information -> sort_mov;
+    information -> t_sort_time = information -> t_sort_time + information -> sort_time;
+}
+
+void reset_current_information(sorting_informations *information) {    
     information -> sort_com = 0;
     information -> sort_mov = 0;
     information -> sort_time = 0;
