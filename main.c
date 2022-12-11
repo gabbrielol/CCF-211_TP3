@@ -132,7 +132,6 @@ int main() {
                 }
                 break;
             case 8 :
-                set_new_informations(&information);
                 loop_sort = 1;
                 while (loop_sort) {
                     // Operações disponíveis no menu de ordenação
@@ -156,6 +155,7 @@ int main() {
                             constroi_new_dicionario(&new_dicionario, &dicionario);
                             break;
                         case 2 :
+                            set_new_informations(&information);
                             printf("Insira uma letra: ");
                             scanf("%s", &letra_desejada);
                             if (letra_desejada >= LOWER_A && letra_desejada <= LOWER_Z) {
@@ -190,7 +190,7 @@ int main() {
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Bubble Sort!\n");
-                                    bubble_sort(&information, &new_dicionario, length_sort, num_letra);
+                                    bubble_sort(&information, &new_dicionario, num_letra, length_sort);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
@@ -202,7 +202,7 @@ int main() {
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Selection Sort!\n");
-                                    selection_sort(&information, &new_dicionario, length_sort, num_letra);
+                                    selection_sort(&information, &new_dicionario, num_letra, length_sort);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
@@ -214,7 +214,7 @@ int main() {
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Insertion Sort!\n");
-                                    insertion_sort(&information, &new_dicionario, length_sort, num_letra);
+                                    insertion_sort(&information, &new_dicionario, num_letra, length_sort);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
@@ -226,7 +226,7 @@ int main() {
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Shell Sort!\n");
-                                    shell_sort(&information, &new_dicionario, length_sort, num_letra);
+                                    shell_sort(&information, &new_dicionario, num_letra, length_sort);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
@@ -238,7 +238,7 @@ int main() {
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Quick Sort!\n");
-                                    quick_sort(&information, &new_dicionario, length_sort, num_letra);
+                                    quick_sort(&information, &new_dicionario, num_letra, length_sort);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
                                     imprime_new_dicionario_letra(&new_dicionario, &dicionario, letra_desejada);
@@ -261,6 +261,7 @@ int main() {
                             }
                             break;
                         case 3 :
+                            set_new_informations(&information);
                             printf("Informe o método de ordenação desejado:\n");
                             printf("\n");
                             printf("1. Bubble Sort\n");
@@ -278,12 +279,16 @@ int main() {
                                 case 1 :
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("UNSORTED:\n\n");
-                                    imprime_new_dicionario_completo(&new_dicionario, &dicionario);
+                                    imprime_new_dicionario_letra(&new_dicionario, &dicionario, 'A');
+                                    imprime_new_dicionario_letra(&new_dicionario, &dicionario, 'B');
                                     printf("-----------------------------------------------------------------\n");
                                     printf("\nOrdenação com Bubble Sort!\n");
+                                    bubble_sort(&information, &new_dicionario, 0, length_sort);
+                                    bubble_sort(&information, &new_dicionario, 1, length_sort);
                                     printf("\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n\n");
-                                    imprime_new_dicionario_completo(&new_dicionario, &dicionario);
+                                    imprime_new_dicionario_letra(&new_dicionario, &dicionario, 'A');
+                                    imprime_new_dicionario_letra(&new_dicionario, &dicionario, 'B');
                                     printf("-----------------------------------------------------------------\n");
                                     break;
                                 case 2 :
@@ -346,18 +351,13 @@ int main() {
                             }
                             break;
                         case 4 :
-                            set_new_informations(&information);
-                            printf("Todas as informações de ordenação foram limpas!\n");
-                            break;
-                        case 5 :
                             printf("Instruções:\n");
                             printf("Passo 1 - Construir o dicionário com suas listas de palavras, só que desta vez com vetores (1)\n");
                             printf("Passo 2 - Utilizar as demais funções de ordenação conforme sua vontade\n\n");
                             printf("Observações:\n");
                             printf("- As informações de ordenação exibidas são para aquela lista de palavras e método em específico\n");
-                            printf("- Para obter outras informações de outras lista e métodos limpe as informações primeiro (7)\n");
                             break;
-                        case 6 :
+                        case 5 :
                             loop_sort = 0;
                             break;
                         default :
