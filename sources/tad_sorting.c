@@ -167,10 +167,12 @@ void partition(sorting_informations *information, tipo_vetor_palavras *vetor, in
     tipo_new_palavra aux;
     pivot = vetor -> vetor_palavras[(*i + *j) / 2];
     do {
+        information -> sort_com++;
         while (strcmp(pivot.caracteres, vetor -> vetor_palavras[*i].caracteres) > 0) {
             information -> sort_com++;
             (*i)++;
         }
+        information -> sort_com++;
         while (strcmp(pivot.caracteres, vetor -> vetor_palavras[*j].caracteres) < 0) {
             information -> sort_com++;
             (*j)--;
@@ -219,13 +221,13 @@ void heap_make(sorting_informations *information, tipo_vetor_palavras *vetor, in
     int j; j = (i * 2) + 1;
     while (j <= lenght) {
         if (j < lenght) {
+            information -> sort_com++;
             if (strcmp(vetor -> vetor_palavras[j].caracteres, vetor -> vetor_palavras[j + 1].caracteres) < 0) {
-                information -> md_sort_com++;
                 j++;
             }
         }
+        information -> sort_com++;
         if (strcmp(aux.caracteres, vetor -> vetor_palavras[j].caracteres) < 0) {
-            information -> sort_com++;
             vetor -> vetor_palavras[i] = vetor -> vetor_palavras[j];
             i = j;
             j = (2 * i) + 1;
