@@ -4,7 +4,7 @@
 #include <time.h>
 #include "../headers/tad_alt_dicio.h"
 
-// Estrutura que armazena as informações de ordenação da lista e método atual
+// Estrutura que armazena as informações de ordenação
 typedef struct {
     double lists;
     double sort_words;

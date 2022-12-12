@@ -369,11 +369,11 @@ int main() {
                         case 4 :
                             printf("Instruções:\n");
                             printf("Passo 1 - Construir o dicionário com suas listas de palavras, só que desta vez com vetores (1)\n");
-                            printf("Passo 2 - Utilizar as demais funções de ordenação conforme sua vontade\n\n");
+                            printf("Passo 2 - Utilizar as demais funções de ordenação conforme sua vontade\n");
                             printf("Observações:\n");
                             printf("- Seguir as instruções anteriores do DICIONÁRIO DE AEDS e do ORDENAÇÃO DO DICIONÁRIO\n");
                             printf("para cada novo arquivo inserido ou mudança feita na lista de palavras original\n");
-                            printf("- A função construir dicionário (1) serve também voltar a lista para sua ordem original\n");
+                            printf("- A função construir dicionário (1) serve também para voltor o dicionário para sua ordem original\n");
                             printf("- As informações de ordenação exibidas são para aquela lista de palavras e método em específico\n");
                             break;
                         case 5 :
