@@ -169,12 +169,10 @@ void partition(sorting_informations *information, tipo_vetor_palavras *vetor, in
     do {
         information -> sort_com++;
         while (strcmp(pivot.caracteres, vetor -> vetor_palavras[*i].caracteres) > 0) {
-            information -> sort_com++;
             (*i)++;
         }
         information -> sort_com++;
         while (strcmp(pivot.caracteres, vetor -> vetor_palavras[*j].caracteres) < 0) {
-            information -> sort_com++;
             (*j)--;
         }
         if (*i <= *j) {
