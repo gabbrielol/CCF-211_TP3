@@ -284,7 +284,6 @@ int main() {
                                     printf("\n\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n");
                                     imprime_new_dicionario_completo(&new_dicionario, &dicionario);
-                                    printf("\n\n\n");
                                     show_sorting_informations(&information, num_letra);
                                     break;
                                 case 2 :
@@ -299,7 +298,6 @@ int main() {
                                     printf("\n\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n");
                                     imprime_new_dicionario_completo(&new_dicionario, &dicionario);
-                                    printf("\n\n\n");
                                     show_sorting_informations(&information, num_letra);
                                     break;
                                 case 3 :
@@ -314,7 +312,6 @@ int main() {
                                     printf("\n\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n");
                                     imprime_new_dicionario_completo(&new_dicionario, &dicionario);
-                                    printf("\n\n\n");
                                     show_sorting_informations(&information, num_letra);
                                     break;
                                 case 4 :
@@ -329,7 +326,6 @@ int main() {
                                     printf("\n\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n");
                                     imprime_new_dicionario_completo(&new_dicionario, &dicionario);
-                                    printf("\n\n\n");
                                     show_sorting_informations(&information, num_letra);
                                     break;
                                 case 5 :
@@ -344,7 +340,6 @@ int main() {
                                     printf("\n\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n");
                                     imprime_new_dicionario_completo(&new_dicionario, &dicionario);
-                                    printf("\n\n\n");
                                     show_sorting_informations(&information, num_letra);
                                     break;
                                 case 6 :
@@ -359,7 +354,6 @@ int main() {
                                     printf("\n\n-----------------------------------------------------------------\n");
                                     printf("SORTED:\n");
                                     imprime_new_dicionario_completo(&new_dicionario, &dicionario);
-                                    printf("\n\n\n");
                                     show_sorting_informations(&information, num_letra);
                                     break;
                                 default :

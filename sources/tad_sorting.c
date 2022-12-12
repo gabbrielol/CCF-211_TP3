@@ -81,9 +81,9 @@ void insertion_sort(sorting_informations *information, tipo_dicionario *dicionar
             information -> sort_com++;
             while ((j >= 0) && (strcmp(aux.caracteres, 
             new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j].caracteres) < 0)) {
+                if (j != i - 1) information -> sort_com++;
                 new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j + 1] =
                 new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j];
-                if (j != i - 1) information -> sort_com++;
                 j--;
             }
             new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j + 1] = aux;
@@ -118,9 +118,9 @@ void shell_sort(sorting_informations *information, tipo_dicionario *dicionario, 
                 j = i;
                 information -> sort_com++;
                 while (strcmp(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - h].caracteres, aux.caracteres) > 0) {
+                    if (j != i) information -> sort_com++;
                     new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j] =
                     new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - h];
-                    if (j != i) information -> sort_com++;
                     j -= h;
                     if (j < h) {
                         break;
