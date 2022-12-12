@@ -21,14 +21,14 @@ typedef struct {
 // Função de ordenação por Bubble Sort
 void bubble_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra);
 
-// // Função de ordenação por Selection Sort
-// void selection_sort(sorting_informations *information, new_dicionario *new_dicionario, int num_letra, int length);
+// Função de ordenação por Selection Sort
+void selection_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra);
 
-// // Função de ordenação por Insertion Sort
-// void insertion_sort(sorting_informations *information, new_dicionario *new_dicionario, int num_letra, int length);
+// Função de ordenação por Insertion Sort
+void insertion_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra);
 
-// // Função de ordenação por Shell Sort
-// void shell_sort(sorting_informations *information, new_dicionario *new_dicionario, int num_letra, int length);
+// Função de ordenação por Shell Sort
+void shell_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra);
 
 // Função de ordenação por Quick Sort
 void quick_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra);
@@ -37,8 +37,7 @@ void partition(sorting_informations *information, tipo_vetor_palavras *vetor, in
 
 // Função de ordenação por Heap Sort
 void heap_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra);
-void make(sorting_informations *information, tipo_vetor_palavras *vetor, int *length);
-void remake(sorting_informations *information, tipo_vetor_palavras *vetor, int left, int right);
+void heap_make(sorting_informations *information, tipo_vetor_palavras *vetor, int i, int lenght);
 
 // Função de SET para todas as informações
 void set_new_informations(sorting_informations *information);
@@ -50,4 +49,4 @@ void set_next_informations(sorting_informations *information);
 void reset_current_information(sorting_informations *information);
 
 // Exibir informações de ordenação
-void show_sorting_informations(sorting_informations *information);
+void show_sorting_informations(sorting_informations *information, int num_letra);

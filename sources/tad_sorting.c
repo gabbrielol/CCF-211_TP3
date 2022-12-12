@@ -2,125 +2,139 @@
 
 void bubble_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra) {
     int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
-    if (length != 0) information -> lists++;
-    int i, j;
-    tipo_new_palavra aux;
-    clock_t start, end;
-    start = clock();
-    // Algoritimo Bubble Sort
-    for (i = 0; i < length - 1; i++) {
-        for (j = 1; j < length - i; j++) {
-            information -> sort_com++;
-            if (strcmp(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j].caracteres, 
-            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - 1].caracteres) < 0) {
-                aux = new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j];
-                new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j] = 
-                new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - 1];
-                new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - 1] = aux;
-                information -> sort_mov++;
+    if (length != 0) {
+        information -> lists++;
+        int i, j;
+        tipo_new_palavra aux;
+        clock_t start, end;
+        start = clock();
+        // Algoritimo Bubble Sort
+        for (i = 0; i < length - 1; i++) {
+            for (j = 1; j < length - i; j++) {
+                information -> sort_com++;
+                if (strcmp(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j].caracteres, 
+                new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - 1].caracteres) < 0) {
+                    aux = new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j];
+                    new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j] = 
+                    new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - 1];
+                    new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - 1] = aux;
+                    information -> sort_mov++;
+                }
             }
         }
+        end = clock();
+        information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+        set_next_informations(information);
+        show_sorting_informations(information, num_letra);
+        reset_current_information(information);
     }
-    end = clock();
-    information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
-    set_next_informations(information);
-    show_sorting_informations(information);
-    reset_current_information(information);
 }
 
-// void selection_sort(sorting_informations *information, new_dicionario *new_dicionario, int num_letra, int length) {
-//     int i, j;
-//     int min;
-//     char *aux;
-//     clock_t start, end;
-//     start = clock();
-//     // Algoritmo Selection Sort
-//     for (i = 0; i < length - 1; i++) {
-//         min = i;
-//         for (j = i + 1; j < length; j++) {
-//             information -> sort_com++;
-//             if (strcmp(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j], 
-//             new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[min]) < 0) {
-//                 min = j;
-//             }
-//         }
-//         strcpy(aux, new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[min]);
-//         strcpy(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[min],
-//         new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i]);
-//         strcpy(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i], aux);
-//         information -> sort_mov++;
-//     }
-//     end = clock();
-//     information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
-//     set_next_informations(information);
-//     show_sorting_informations(information);
-//     reset_current_information(information);
-// }
+void selection_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra) {
+    int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
+    if (length != 0) {
+        information -> lists++;
+        int i, j;
+        int min;
+        tipo_new_palavra aux;
+        clock_t start, end;
+        start = clock();
+        // Algoritmo Selection Sort
+        for (i = 0; i < length - 1; i++) {
+            min = i;
+            for (j = i + 1; j < length; j++) {
+                information -> sort_com++;
+                if (strcmp(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j].caracteres, 
+                new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[min].caracteres) < 0) {
+                    min = j;
+                }
+            }
+            aux = new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[min];
+            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[min] =
+            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i];
+            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i] = aux;
+            information -> sort_mov++;
+        }
+        end = clock();
+        information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+        set_next_informations(information);
+        show_sorting_informations(information, num_letra);
+        reset_current_information(information);
+    }
+}
 
-// void insertion_sort(sorting_informations *information, new_dicionario *new_dicionario, int num_letra, int length) {
-//     int i, j;
-//     char *aux;
-//     clock_t start, end;
-//     start = clock();
-//     // Algoritmo Insertion Sort
-//     for (i = 0; i < length; i++) {
-//         strcpy(aux, new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i]);
-//         j = i - 1;
-//         information -> sort_com++;
-//         while ((j >= 0) && (strcmp(aux, 
-//         new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j]) < 0)) {
-//             strcpy(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j + 1],
-//             new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j]);
-//             if (j != i - 1) information -> sort_com++;
-//             j--;
-//         }
-//         strcpy(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j + 1], aux);
-//         information -> sort_mov++;
-//     }
-//     end = clock();
-//     information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
-//     set_next_informations(information);
-//     show_sorting_informations(information);
-//     reset_current_information(information);
-// }
+void insertion_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra) {
+    int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
+    if (length != 0) {
+        information -> lists++;
+        int i, j;
+        tipo_new_palavra aux;
+        clock_t start, end;
+        start = clock();
+        // Algoritmo Insertion Sort
+        for (i = 0; i < length; i++) {
+            aux = new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i];
+            j = i - 1;
+            information -> sort_com++;
+            while ((j >= 0) && (strcmp(aux.caracteres, 
+            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j].caracteres) < 0)) {
+                new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j + 1] =
+                new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j];
+                if (j != i - 1) information -> sort_com++;
+                j--;
+            }
+            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j + 1] = aux;
+            information -> sort_mov++;
+        }
+        end = clock();
+        information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+        set_next_informations(information);
+        show_sorting_informations(information, num_letra);
+        reset_current_information(information);
+    }
+}
 
-// void shell_sort(sorting_informations *information, new_dicionario *new_dicionario, int num_letra, int length) {
-//     int i, j;
-//     int h; h = 1;
-//     char *aux;
-//     clock_t start, end;
-//     start = clock();
-//     // Algoritmo Shell Sort
-//     do {
-//         h = h * 3 + 1;
-//     } while (h < length);
-//     do {
-//         h = h/3;
-//         for (i = h; i < length; i++) {
-//             strcpy(aux, new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i]);
-//             j = i;
-//             information -> sort_com++;
-//             while (strcmp(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - h], aux) > 0) {
-//                 strcpy(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j],
-//                 new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - h]);
-//                 if (j != i) information -> sort_com++;
-//                 j -= h;
-//                 if (j < h) {
-//                     break;
-//                 }
-//             }
-//             strcpy(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j], aux);
-//             information -> sort_mov++;
-//         }
-//     } while (h != 1);
-//     end = clock();
-//     information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
-//     set_next_informations(information);
-//     show_sorting_informations(information);
-//     reset_current_information(information);
-// }
+void shell_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra) {
+    int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
+    if (length != 0) {
+        information -> lists++;
+        int i, j;
+        int h; h = 1;
+        tipo_new_palavra aux;
+        clock_t start, end;
+        start = clock();
+        // Algoritmo Shell Sort
+        do {
+            h = (h * 3) + 1;
+        } while (h < length);
+        do {
+            h = h/3;
+            for (i = h; i < length; i++) {
+                aux = new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i];
+                j = i;
+                information -> sort_com++;
+                while (strcmp(new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - h].caracteres, aux.caracteres) > 0) {
+                    new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j] =
+                    new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j - h];
+                    if (j != i) information -> sort_com++;
+                    j -= h;
+                    if (j < h) {
+                        break;
+                    }
+                }
+                new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[j] = aux;
+                information -> sort_mov++;
+            }
+        } while (h != 1);
+        end = clock();
+        information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+        set_next_informations(information);
+        show_sorting_informations(information, num_letra);
+        reset_current_information(information);
+    }
+}
 
-// Algoritmo Quick Sort - Sort - Partition - Swap
+// Algoritmo Quick Sort - Sort - Partition
 void quick_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra) {
     int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
     if (length != 0) {
@@ -132,7 +146,7 @@ void quick_sort(sorting_informations *information, tipo_dicionario *dicionario, 
         end = clock();
         information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
         set_next_informations(information);
-        show_sorting_informations(information);
+        show_sorting_informations(information, num_letra);
         reset_current_information(information);
     }
 }
@@ -160,56 +174,55 @@ void partition(sorting_informations *information, tipo_vetor_palavras *vetor, in
     } while (*i <= *j);
 }
 
-// // Algoritmo Heap Sort - Make - Remake
+// Algoritmo Heap Sort - Heap Make
 void heap_sort(sorting_informations *information, tipo_dicionario *dicionario, new_dicionario *new_dicionario, int num_letra) {
     int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
     if (length != 0) {
-        int left, right;
+        information -> lists++;
+        int i;
         tipo_new_palavra aux;
         clock_t start, end;
         start = clock();
-        // Algoritmo Heap Sort -> Make -> Remake
-        make(information, &new_dicionario -> alfabeto[num_letra].lista_palavras_vetor, &length);
-        left = 1;
-        right = length;
-        while (right > 1) {
-            aux = new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[1];
-            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[1] =
-            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[right];
-            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[right] = aux;
-            information -> sort_mov++;
-            right--;
-            remake(information, &new_dicionario -> alfabeto[num_letra].lista_palavras_vetor, left, right);
+        // Algoritmo Heap Sort -> Heap Make
+        for (i = (length - 1)/2; i >= 0; i--) {
+            heap_make(information, &new_dicionario -> alfabeto[num_letra].lista_palavras_vetor, i, length - 1);
+        }
+        for (i = length - 1; i >= 1; i--) {
+            aux = new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[0];
+            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[0] = 
+            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i];
+            new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i] = aux;
+            heap_make(information, &new_dicionario -> alfabeto[num_letra].lista_palavras_vetor, 0, i - 1);
         }
         end = clock();
         information -> sort_time = ((double) (end - start)) / CLOCKS_PER_SEC;
         set_next_informations(information);
-        show_sorting_informations(information);
+        show_sorting_informations(information, num_letra);
         reset_current_information(information);
     }
 }
-void make(sorting_informations *information, tipo_vetor_palavras *vetor, int *length) {
-    int left;
-    left = (*length / 2) + 1;
-    while (left > 1) {
-        left--;
-        remake(information, vetor, left, *length);
+void heap_make(sorting_informations *information, tipo_vetor_palavras *vetor, int i, int lenght) {
+    tipo_new_palavra aux; aux = vetor -> vetor_palavras[i];
+    int j; j = (i * 2) + 1;
+    while (j <= lenght) {
+        if (j < lenght) {
+            if (strcmp(vetor -> vetor_palavras[j].caracteres, vetor -> vetor_palavras[j + 1].caracteres) < 0) {
+                j++;
+            }
+        }
+        if (strcmp(aux.caracteres, vetor -> vetor_palavras[j].caracteres) < 0) {
+            vetor -> vetor_palavras[i] = vetor -> vetor_palavras[j];
+            i = j;
+            j = (2 * i) + 1;
+        }
+        else {
+            j = lenght + 1;
+        }
     }
-}
-void remake(sorting_informations *information, tipo_vetor_palavras *vetor, int left, int right) {
-    int j; j = left * 2;
-    tipo_new_palavra aux; aux = vetor -> vetor_palavras[left];
-    while (j <= right) {
-        information -> sort_com++;
-        if ((j < right) && (strcmp(vetor -> vetor_palavras[j].caracteres, vetor -> vetor_palavras[j + 1].caracteres) < 0)) j++;
-        if (strcmp(aux.caracteres, vetor -> vetor_palavras[j].caracteres) >= 0) break;
-        vetor -> vetor_palavras[left] = vetor -> vetor_palavras[j];
-        left = j;
-        j = left * 2;
-    }
-    vetor -> vetor_palavras[j] = aux;
+    vetor -> vetor_palavras[i] = aux;
 }
 
+// Funções de Sorting Informations
 void set_new_informations(sorting_informations *information) {
     information -> lists = 0;
     information -> sort_com = 0;
@@ -235,11 +248,15 @@ void reset_current_information(sorting_informations *information) {
     information -> sort_time = 0;
 }
 
-void show_sorting_informations(sorting_informations *information) {
+void show_sorting_informations(sorting_informations *information, int num_letra) {
+    const char letra[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     printf("\n-----------------------------------------------------------------\n");
-    printf("Comparações: %lf\n", information -> sort_com);
-    printf("Movimentações: %lf\n", information -> sort_mov);
-    printf("Tempo: %lf\n", information -> sort_time);
+    if (num_letra < 26) printf("Letra |%c|\n", letra[num_letra]);
+    else printf("Informações de ordenação:\n");
+    printf("-----------------------------------------------------------------\n");
+    printf("Comparações atuais: %lf\n", information -> sort_com);
+    printf("Movimentações atuais: %lf\n", information -> sort_mov);
+    printf("Tempo atual: %lf\n", information -> sort_time);
     printf("-----------------------------------------------------------------\n");
     printf("Total de listas de palavras: %lf\n", information -> lists);
     printf("Total de comparações: %lf\n", information -> t_sort_com);
@@ -250,4 +267,5 @@ void show_sorting_informations(sorting_informations *information) {
     printf("Média de movimentações %lf\n", information -> t_sort_mov / information -> lists);
     printf("Média de tempo: %lf\n", information -> t_sort_time / information -> lists);
     printf("-----------------------------------------------------------------\n");
+    printf("\n\n");
 }
