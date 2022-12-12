@@ -4,6 +4,7 @@ void bubble_sort(sorting_informations *information, tipo_dicionario *dicionario,
     int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
     if (length != 0) {
         information -> lists++;
+        information -> sort_words = length;
         int i, j;
         tipo_new_palavra aux;
         clock_t start, end;
@@ -34,6 +35,7 @@ void selection_sort(sorting_informations *information, tipo_dicionario *dicionar
     int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
     if (length != 0) {
         information -> lists++;
+        information -> sort_words = length;
         int i, j;
         int min;
         tipo_new_palavra aux;
@@ -67,6 +69,7 @@ void insertion_sort(sorting_informations *information, tipo_dicionario *dicionar
     int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
     if (length != 0) {
         information -> lists++;
+        information -> sort_words = length;
         int i, j;
         tipo_new_palavra aux;
         clock_t start, end;
@@ -98,6 +101,7 @@ void shell_sort(sorting_informations *information, tipo_dicionario *dicionario, 
     int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
     if (length != 0) {
         information -> lists++;
+        information -> sort_words = length;
         int i, j;
         int h; h = 1;
         tipo_new_palavra aux;
@@ -139,6 +143,7 @@ void quick_sort(sorting_informations *information, tipo_dicionario *dicionario, 
     int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
     if (length != 0) {
         information -> lists++;
+        information -> sort_words = length;
         clock_t start, end;
         start = clock();
         // Algoritmo Quick Sort -> Sort -> Partition
@@ -162,14 +167,20 @@ void partition(sorting_informations *information, tipo_vetor_palavras *vetor, in
     tipo_new_palavra aux;
     pivot = vetor -> vetor_palavras[(*i + *j) / 2];
     do {
-        while (strcmp(pivot.caracteres, vetor -> vetor_palavras[*i].caracteres) > 0) (*i)++;
-        while (strcmp(pivot.caracteres, vetor -> vetor_palavras[*j].caracteres) < 0) (*j)--;
+        while (strcmp(pivot.caracteres, vetor -> vetor_palavras[*i].caracteres) > 0) {
+            information -> sort_com++;
+            (*i)++;
+        }
+        while (strcmp(pivot.caracteres, vetor -> vetor_palavras[*j].caracteres) < 0) {
+            information -> sort_com++;
+            (*j)--;
+        }
         if (*i <= *j) {
             aux = vetor -> vetor_palavras[*i];
             vetor -> vetor_palavras[*i] = vetor -> vetor_palavras[*j];
             vetor -> vetor_palavras[*j] = aux;
-            (*i)++; (*j)--;
             information -> sort_mov++;
+            (*i)++; (*j)--;
         }
     } while (*i <= *j);
 }
@@ -179,6 +190,7 @@ void heap_sort(sorting_informations *information, tipo_dicionario *dicionario, n
     int length; length = retorna_numero_palavras(&dicionario -> alfabeto[num_letra].lista_palavras);
     if (length != 0) {
         information -> lists++;
+        information -> sort_words = length;
         int i;
         tipo_new_palavra aux;
         clock_t start, end;
@@ -192,6 +204,7 @@ void heap_sort(sorting_informations *information, tipo_dicionario *dicionario, n
             new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[0] = 
             new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i];
             new_dicionario -> alfabeto[num_letra].lista_palavras_vetor.vetor_palavras[i] = aux;
+            information -> sort_mov++;
             heap_make(information, &new_dicionario -> alfabeto[num_letra].lista_palavras_vetor, 0, i - 1);
         }
         end = clock();
@@ -207,10 +220,12 @@ void heap_make(sorting_informations *information, tipo_vetor_palavras *vetor, in
     while (j <= lenght) {
         if (j < lenght) {
             if (strcmp(vetor -> vetor_palavras[j].caracteres, vetor -> vetor_palavras[j + 1].caracteres) < 0) {
+                information -> md_sort_com++;
                 j++;
             }
         }
         if (strcmp(aux.caracteres, vetor -> vetor_palavras[j].caracteres) < 0) {
+            information -> sort_com++;
             vetor -> vetor_palavras[i] = vetor -> vetor_palavras[j];
             i = j;
             j = (2 * i) + 1;
@@ -225,24 +240,29 @@ void heap_make(sorting_informations *information, tipo_vetor_palavras *vetor, in
 // Funções de Sorting Informations
 void set_new_informations(sorting_informations *information) {
     information -> lists = 0;
+    information -> sort_words = 0;
     information -> sort_com = 0;
     information -> sort_mov = 0;
     information -> sort_time = 0;
+    information -> t_sort_words = 0;
     information -> t_sort_com = 0;
     information -> t_sort_mov = 0;
     information -> t_sort_time = 0;
+    information -> md_sort_words = 0;
     information -> md_sort_com = 0;
     information -> md_sort_mov = 0;
     information -> md_sort_time = 0;
 }
 
 void set_next_informations(sorting_informations *information) {
+    information -> t_sort_words = information -> t_sort_words + information -> sort_words;
     information -> t_sort_com = information -> t_sort_com + information -> sort_com;
     information -> t_sort_mov = information -> t_sort_mov + information -> sort_mov;
     information -> t_sort_time = information -> t_sort_time + information -> sort_time;
 }
 
-void reset_current_information(sorting_informations *information) {    
+void reset_current_information(sorting_informations *information) {
+    information -> sort_words = 0;    
     information -> sort_com = 0;
     information -> sort_mov = 0;
     information -> sort_time = 0;
@@ -254,18 +274,20 @@ void show_sorting_informations(sorting_informations *information, int num_letra)
     if (num_letra < 26) printf("Letra |%c|\n", letra[num_letra]);
     else printf("Informações de ordenação:\n");
     printf("-----------------------------------------------------------------\n");
+    printf("Palavras atuais: %lf\n", information -> sort_words);
     printf("Comparações atuais: %lf\n", information -> sort_com);
     printf("Movimentações atuais: %lf\n", information -> sort_mov);
     printf("Tempo atual: %lf\n", information -> sort_time);
     printf("-----------------------------------------------------------------\n");
+    printf("Total de palavras: %lf\n", information -> t_sort_words);
     printf("Total de listas de palavras: %lf\n", information -> lists);
     printf("Total de comparações: %lf\n", information -> t_sort_com);
     printf("Total de movimentaçẽs: %lf\n", information -> t_sort_mov);
     printf("Tempo total: %lf\n", information -> t_sort_time);
     printf("-----------------------------------------------------------------\n");
-    printf("Média de comparações: %lf\n", information -> t_sort_com / information -> lists);
-    printf("Média de movimentações %lf\n", information -> t_sort_mov / information -> lists);
-    printf("Média de tempo: %lf\n", information -> t_sort_time / information -> lists);
+    printf("Média de palavras/lista: %lf\n", information -> t_sort_words / information -> lists);
+    printf("Média de comparações/lista: %lf\n", information -> t_sort_com / information -> lists);
+    printf("Média de movimentações/lista: %lf\n", information -> t_sort_mov / information -> lists);
+    printf("Média de tempo/lista: %lf\n", information -> t_sort_time / information -> lists);
     printf("-----------------------------------------------------------------\n");
-    printf("\n\n");
 }

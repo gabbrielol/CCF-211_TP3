@@ -7,12 +7,15 @@
 // Estrutura que armazena as informações de ordenação da lista e método atual
 typedef struct {
     double lists;
+    double sort_words;
     double sort_com;
     double sort_mov;
     double sort_time;
+    double t_sort_words;
     double t_sort_com;
     double t_sort_mov;
     double t_sort_time;
+    double md_sort_words;
     double md_sort_com;
     double md_sort_mov;
     double md_sort_time;
